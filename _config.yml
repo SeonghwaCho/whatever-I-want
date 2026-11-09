@@ -9,6 +9,8 @@ url: "https://seonghwacho.github.io"
 
 theme: minima
 
+future: true
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag

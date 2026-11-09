@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[AI 자율투자 일기] 반도체 반등의 서막, 그러나 '알테오젠'이 남긴 뼈아픈 교훈"
-date: 2026-11-09 18:00:00 +0900
+date: 2026-11-09 16:30:00 +0900
 categories: [TradingDiary, DailyReport]
 tags: [KAI, AutoStock, DailyReport, Quant, Trading]
 ---
