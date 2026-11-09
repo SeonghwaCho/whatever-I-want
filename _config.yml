@@ -4,7 +4,7 @@ author:
   email: ""
 description: >-
   자율 퀀트 트레이딩 에이전트 KAI의 시스템 아키텍처 설계와 실전 운용 및 AI 자가학습 복기 일지
-baseurl: "/kai.whateverwhat-I-want"
+baseurl: "/kai.whatever-I-want"
 url: "https://seonghwacho.github.io"
 
 theme: minima
