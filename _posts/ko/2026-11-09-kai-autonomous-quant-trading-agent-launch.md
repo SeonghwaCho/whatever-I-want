@@ -1,24 +1,22 @@
 ---
 layout: post
-title: "[KAI Project #1] 자율 퀀트 트레이딩 에이전트 KAI 출범 — 시스템 아키텍처와 첫 번째 자가 진화 (System Architecture & Autonomous Evolution)"
+title: "[KAI Project #1] 자율 퀀트 트레이딩 에이전트 KAI 출범 — 시스템 아키텍처와 첫 번째 자가 진화"
 date: 2026-11-09 12:00:00 +0900
-categories: [Architecture, Quant]
+categories: [ko, Architecture]
 tags: [KAI, Quant, AI, SystemDesign, AutonomousTrading]
+permalink: /ko/:year/:month/:day/:title.html
 ---
 
-> **📌 3줄 핵심 요약 (Executive Summary)**
+> **📌 3줄 핵심 요약**
 > 1. 자율 퀀트 트레이딩 에이전트 **KAI**가 국내 주식 시장(KOSPI/KOSDAQ)을 대상으로 실전 모의투자 가동을 공식 개시했습니다.
 > 2. 거시 경제 분석, 생성형 AI 가설 추론, 수학적 절대 리스크 관리, 실시간 틱 체결, 사후 자가학습이 결합된 5계층 모듈형 아키텍처로 작동합니다.
 > 3. 첫 운용 중 포착된 변동성 구간 휩소(Whipsaw) 현상을 AI 반성 엔진이 즉각 분석하여, 재진입 억제 규칙을 스스로 수립하고 시스템에 영구 반영했습니다.
->
-> **📌 3-Sentence English Executive Summary**
-> 1. **KAI**, an autonomous quantitative trading agent, has officially launched its live paper trading operations in the Korean equity markets.
-> 2. The agent is built upon a modular 5-layer architecture integrating macro perception, hybrid AI reasoning, mathematical risk safeguards, real-time tick execution, and automated post-mortem learning.
-> 3. An early execution whipsaw incident during intraday volatility was autonomously audited by the Reflection Engine, instantly synthesizing and deploying a permanent re-entry cooldown rule.
+
+[🌐 Read this article in English (영문 버전으로 읽기)](/whatever-I-want/en/2026/11/09/kai-autonomous-quant-trading-agent-launch.html)
 
 ---
 
-## [한국어] 시스템 아키텍처와 출범 보고
+## 시스템 아키텍처와 출범 보고
 
 2026년 11월 9일, 국내 주식 시장을 무대로 시장 분석, 종목 발굴, 실시간 호가 감시, 엄격한 리스크 통제 및 사후 복기를 수행하는 자율 퀀트 트레이딩 에이전트 **KAI**의 실전 모의투자 가동을 시작했습니다.
 
@@ -88,45 +86,4 @@ KAI는 보안과 자본 보호를 최우선으로 설계된 5개 핵심 계층(L
 KAI는 사람이 개입하지 않아도 시스템 스스로 실전의 불완전성을 인정하고, 복기하여, 더 안전한 상태로 즉시 거듭나는 진정한 자율 퀀트의 가능성을 보여주었습니다.
 
 ---
-
-## [English] System Architecture & Autonomous Evolution
-
-On November 9, 2026, **KAI**, a full-stack autonomous quantitative trading agent, officially commenced live paper trading in the Korean stock markets (KOSPI/KOSDAQ).
-
-Going beyond conventional indicator-based heuristic bots, KAI is designed as an end-to-end autonomous agent that harmonizes **macro regime classification, hybrid AI hypothesis generation, mathematically unbypassable risk controls, low-latency tick monitoring, and self-improving post-trade reflection.**
-
-### 1. High-Level Modular Architecture
-
-KAI operates through 5 decoupled, security-hardened architectural layers:
-
-1. **Layer 1: Perception & Market Feeds**  
-   Continuous streaming of real-time quotes, order book dynamics, exchange transaction feeds, and macroeconomic indicators.
-2. **Layer 2: AI Brain & Memory**  
-   Synthesizes market conditions, generates trading hypotheses with defined risk parameters, and injects historically learned rules through high-dimensional vector memory (RAG).
-3. **Layer 3: Unbypassable Risk Manager**  
-   An algorithmic barrier where AI models cannot dictate execution quantities. Enforces zero leverage (100% cash-only), single-position portfolio caps, volatility-adjusted position sizing, and mathematical order rejection at or below stop-loss boundaries.
-4. **Layer 4: Real-time Execution Engine**  
-   Daemon-driven state-machine actively monitoring intraday price action, orchestrating partial profit-taking (50% scale-out with trailing break-even stops), and enforcing mechanical loss cuts.
-5. **Layer 5: Continuous Reflection & Self-Learning**  
-   Post-market and incident audits that classify prediction errors, synthesize conditional IF-THEN correction rules, and dynamically register active constraints into the system rulebook.
-
-### 2. Core Operational Principles
-
-- **Capital Preservation First**: Zero margin, zero credit borrowing. A strict cash cushion is permanently reserved regardless of market sentiment.
-- **Strict Separation of Brain and Sizing**: Probabilistic language models formulate market thesis, but deterministic algorithms calculate mathematical capital exposure.
-- **Systematic Adaptation**: Unfavorable outcomes are not discarded; they serve as primary training data for the automated post-mortem engine to fortify future boundaries.
-
-### 3. First Day in the Field: Immediate Self-Evolution
-
-During today's inaugural session, KAI encountered an intraday edge-case driven by heightened morning volatility in a fast-moving biotech stock:
-
-- **Incident**: A sharp opening dip pushed the price below the designated entry trigger. While the initial position was mechanically cut via stop-loss within seconds, the absence of an immediate post-stop cooldown led to rapid re-entry whipsaws across successive ticks.
-- **Autonomous Remediation**:
-  - The live daemon instantly isolated the ticker, and the automated **Reflection Engine** was invoked to perform a rigorous post-mortem analysis on tick-level telemetry.
-  - The engine diagnosed the execution loop and synthesized a mandatory rule: **"Absolute Re-entry Prohibition & Mandatory Cooldown Following Stop-Loss Exits."**
-  - This rule was dynamically promoted to `ACTIVE` status in the system's rulebook, while the Risk Manager was fortified to reject any buy order below support floors mathematically.
-
-Through this incident, KAI successfully demonstrated its self-healing capability—transforming real-time execution friction into permanent, code-level risk defenses without human intervention.
-
----
-*Disclaimer: All publications on this blog are technical research logs of an autonomous AI trading system and do not constitute financial advice.*
+*Disclaimer: 본 블로그의 모든 글은 금융 투자 권유가 아니며, 자율 인공지능 트레이딩 시스템 연구 및 개발 과정을 기록한 기술 일지입니다.*
