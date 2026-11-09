@@ -1,124 +1,132 @@
 ---
 layout: post
-title: "[KAI 프로젝트 #1] 자율 퀀트 트레이딩 에이전트 KAI 출범 — 시스템 아키텍처와 첫 번째 진화"
+title: "[KAI Project #1] 자율 퀀트 트레이딩 에이전트 KAI 출범 — 시스템 아키텍처와 첫 번째 자가 진화 (System Architecture & Autonomous Evolution)"
 date: 2026-11-09 12:00:00 +0900
 categories: [Architecture, Quant]
-tags: [KAI, AutoStock, AI, Trading, Architecture, SystemDesign]
+tags: [KAI, Quant, AI, SystemDesign, AutonomousTrading]
 ---
 
-2026년 11월 9일, 국내 주식 시장(KOSPI / KOSDAQ)을 무대로 자율적인 시장 분석, 종목 발굴, 실시간 호가 감시, 주문 집행 및 사후 복기를 수행하는 풀스택 인공지능 트레이딩 시스템 **KAI (AutoStock)**의 실전 모의투자 가동을 본격적으로 시작했습니다.
-
-단순히 사전에 정의된 몇 가지 보조지표로 매수 신호를 띄우는 전통적인 룰베이스 봇을 넘어, **거시 경제 분석부터 딥러닝/LLM 추론, 절대적 수학 리스크 통제, 실시간 WebSocket 틱 체결, 그리고 매매 실패로부터 스스로 학습하는 사후 반성(Self-Reflection) 메커니즘**까지 결합된 자율 에이전트의 전체 구조를 공개합니다.
+> **📌 3줄 핵심 요약 (Executive Summary)**
+> 1. 자율 퀀트 트레이딩 에이전트 **KAI**가 국내 주식 시장(KOSPI/KOSDAQ)을 대상으로 실전 모의투자 가동을 공식 개시했습니다.
+> 2. 거시 경제 분석, 생성형 AI 가설 추론, 수학적 절대 리스크 관리, 실시간 틱 체결, 사후 자가학습이 결합된 5계층 모듈형 아키텍처로 작동합니다.
+> 3. 첫 운용 중 포착된 변동성 구간 휩소(Whipsaw) 현상을 AI 반성 엔진이 즉각 분석하여, 재진입 억제 규칙을 스스로 수립하고 시스템에 영구 반영했습니다.
+>
+> **📌 3-Sentence English Executive Summary**
+> 1. **KAI**, an autonomous quantitative trading agent, has officially launched its live paper trading operations in the Korean equity markets.
+> 2. The agent is built upon a modular 5-layer architecture integrating macro perception, hybrid AI reasoning, mathematical risk safeguards, real-time tick execution, and automated post-mortem learning.
+> 3. An early execution whipsaw incident during intraday volatility was autonomously audited by the Reflection Engine, instantly synthesizing and deploying a permanent re-entry cooldown rule.
 
 ---
 
-## 1. 시스템 전체 아키텍처 (System Architecture)
+## [한국어] 시스템 아키텍처와 출범 보고
 
-KAI 시스템은 크게 **[데이터 수집] ➔ [두뇌 추론 & 전략 생성] ➔ [절대 리스크 검증] ➔ [실시간 틱 체결 데몬] ➔ [사후 복기 및 자가학습] ➔ [모니터링 & 브리핑 인터페이스]**의 6개 계층(Layer)으로 유기적으로 연결되어 있습니다.
+2026년 11월 9일, 국내 주식 시장을 무대로 시장 분석, 종목 발굴, 실시간 호가 감시, 엄격한 리스크 통제 및 사후 복기를 수행하는 자율 퀀트 트레이딩 에이전트 **KAI**의 실전 모의투자 가동을 시작했습니다.
 
-### 아키텍처 다이어그램
+단순한 기술적 보조지표 기반의 전통적인 룰베이스 시스템을 넘어, **시장 국면 분석부터 최신 AI 추론, 우회 불가능한 수학적 리스크 통제, 실시간 호가 체결, 그리고 매매 오차로부터 스스로 학습하는 사후 반성(Self-Reflection) 메커니즘**까지 결합된 자율 에이전트의 전체 구조를 소개합니다.
+
+### 1. 시스템 전체 아키텍처 (High-Level Architecture)
+
+KAI는 보안과 자본 보호를 최우선으로 설계된 5개 핵심 계층(Layer)으로 상호 작용합니다.
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                   Layer 1: Perception & Market Data                    │
-│   - 한국투자증권(KIS) REST & WebSocket     - 한국은행 ECOS 거시지표     │
-│   - pykrx 거래소 일봉/수급 데이터           - 테마/뉴스 카탈리스트      │
+│                   Layer 1: Perception & Market Feeds                   │
+│      - 금융 시장 실시간 시세 및 호가 피드 / 거시 경제 데이터 수집      │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│               Layer 2: Hybrid AI Brain (전략 수립 & 추론)               │
-│   - Gemini 3 Flash Preview (거시 레짐 판정 & 종목 스크리닝)            │
-│   - RAG Vector Store (sqlite-vec + 1024-dim MRL 임베딩)                │
-│   - Active Rule Book (과거 오차로부터 학습된 교정 규칙 주입)            │
+│               Layer 2: AI Brain & Memory (전략 및 가설 추론)            │
+│      - 멀티 모달 AI 가설 수립 및 시장 레짐(Regime) 분류               │
+│      - 과거 매매 복기 및 학습된 교정 규칙 주입 (RAG Memory)           │
 └───────────────────────────────────┬────────────────────────────────────┘
-                                    │ Stock Signals (진입가/손절가/목표가)
+                                    │ 전략 시그널 (진입/손절/목표가)
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│             Layer 3: Unbypassable Mathematical Risk Manager            │
-│   - 100% 현금 원칙 (신용/미수/공매도 원천 차단)                          │
-│   - 단일 종목 한도: 스윙 15%, 단타 7% / 최소 현금 보유 비중 20% 보호   │
-│   - 1회 거래 최대 허용 손실 0.75% 캡 기반 기계적 포지션 사이징         │
-│   - 손절가 이하 주문 수학적 차단 & 일일 최대 거래 횟수(12회) 제어      │
+│            Layer 3: Unbypassable Risk Manager (절대 리스크 통제)       │
+│      - AI 모델의 주문 수량 직접 결정 원천 차단 (수학 모듈 검증)        │
+│      - 100% 현금 원칙 (신용/미수 차단) 및 단일 종목 노출 한도 제한    │
+│      - 1회 거래 최대 위험 한도 제어 & 손절선 이하 매수 수학적 거부    │
 └───────────────────────────────────┬────────────────────────────────────┘
-                                    │ Verified Orders
+                                    │ 검증 완료된 주문
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│              Layer 4: Real-time Intraday Daemon (08:50 ~ 15:30)        │
-│   - macOS launchd 데몬 백그라운드 무중단 가동                          │
-│   - KIS 실시간 WebSocket 체결통보 & 호가 틱 스트림 수신                │
-│   - State-Machine: 눌림목(BUY_ON_DIP), 돌파(BUY_BREAKOUT) 자동 체결    │
-│   - 다단계 익절 (1차 목표가 도달 시 50% 분할익절 ➔ 본절 트레일링 스탑) │
-│   - 기계적 칼손절 (Stop Loss) 및 마감 15분 전 단타 전량 자동 청산      │
-└───────────────────────┬────────────────────────┬───────────────────────┘
-                        │                        │
-                        ▼                        ▼
-┌───────────────────────────────────┐    ┌───────────────────────────────┐
-│ Layer 5: Reflection & Self-Learning│    │ Layer 6: Interface & Portal   │
-│  - ReflectionEngine (사후 복기)   │    │  - Telegram 봇 브리핑         │
-│  - 오차 원인 분석 (PREMISE_BROKEN │    │  - 웹 통합 포털 (Monitor-Hub) │
-│    / OVERRIDDEN_BY / NOISE)       │    │  - GitHub Pages 리서치 블로그 │
-│  - 신규 교정 규칙 도출 ➔ RAG 저장 │    │  - 토큰 사용량 & 손익 투명화  │
-└───────────────────────────────────┘    └───────────────────────────────┘
+│             Layer 4: Real-time Execution Engine (실시간 집행)          │
+│      - 장중 무중단 백그라운드 호가 감시 및 상태 머신 체결            │
+│      - 단계별 분할 익절(Take-Profit) 및 본절 추적 트레일링 스탑       │
+│      - 원칙 준수 기계적 손절매(Stop-Loss) 집행                        │
+└───────────────────────┬────────────────────────────────────────────────┘
+                        │
+                        ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│            Layer 5: Continuous Reflection & Self-Learning (자가학습)   │
+│      - 오차 원인 분류 (가설 붕괴 / 시장 외생 변수 / 노이즈 휩소)       │
+│      - 사후 복기를 통한 신규 규칙(Learned Rules) 자동 도출 및 배포     │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
----
+### 2. 핵심 설계 철학
 
-## 2. 핵심 서브시스템 상세 분석
+1. **Safety First (자본 보존의 절대 원칙)**  
+   수익 창출보다 계좌의 안전이 항상 우선합니다. 신용이나 레버리지 없이 온전한 현금 자산만을 운용하며, 계좌의 일정 비율을 항상 안전 예비 현금으로 유지합니다.
+2. **Mathematical Risk Verification (수학적 리스크 검증)**  
+   대형 언어 모델(LLM)은 종목에 대한 논리와 진입 가설만 제공할 뿐, 구체적인 주문 수량과 손절 가격은 철저히 하드코딩된 수학 공식(`RiskManager`)을 통해서만 결정됩니다.
+3. **Continuous Reflection & Evolution (자가 복기 메커니즘)**  
+   모든 매매 결과와 호가 이탈은 사후 반성 엔진(`ReflectionEngine`)의 감사를 거칩니다. 실수가 발생하면 원인을 규명하고, 차후 동일 실수를 막는 행동 규칙을 스스로 생성하여 영구 기억합니다.
 
-### ① AI 두뇌와 RAG 메모리 (Brain Layer)
-- **최신 LLM 엔진**: Google Gemini 3 Flash Preview(`gemini-3-flash-preview`)를 메인 추론 엔진으로 활용하며, 필요 시 로컬 모델(Qwen2.5)로 안전하게 폴백(Fallback)됩니다.
-- **RAG & Rule-Book 주입**: 단순히 프롬프트에 시장 정보를 던지는 것이 아니라, 과거 매매에서 발생했던 실수와 오차 기록을 벡터 임베딩(`gemini-embedding-001`) 형태로 검색하여 **"과거에 동일한 패턴에서 실패했던 규칙(Learned Rules)"**을 프롬프트에 사전 주입하여 동일 실수를 방지합니다.
+### 3. 첫 실전 운용의 도전과 첫 번째 진화
 
-### ② 우회 불가능한 리스크 관리자 (Unbypassable Risk Manager)
-- **AI는 절대 주문 수량이나 금액을 결정할 수 없습니다**: LLM은 진입 가설과 가격 조건만 제시할 뿐, 실제 주문 수량은 철저히 하드코딩된 파이썬 수학 모듈(`RiskManager`)을 거칩니다.
-- **철저한 자금 보존 원칙**:
-  - **100% 현금 거래**: 미수/신용은 코드 상에 존재하지 않습니다.
-  - **최소 20% 안전 현금 보유**: 계좌 자산의 최소 20%는 어떠한 경우에도 매수에 투입되지 않는 안전 쿠션으로 남깁니다.
-  - **포지션 한도**: 스윙 종목 최대 15%, 당일 단타 종목 최대 7%로 자산 배분을 제한합니다.
+오늘 첫 모의투자 운용 중, 급격한 변동성을 겪는 종목에서 실전 엣지 케이스(Edge Case)가 포착되었습니다.
 
-### ③ 실시간 체결 및 트레일링 스탑 (Real-time Execution)
-- 장 시작 전 08:50에 `launchd` 데몬이 기동되어 감시 대상 종목들의 실시간 호가 WebSocket을 구독합니다.
-- 목표가 1차 도달 시 보유 물량의 50%를 기계적으로 분할 매도하여 확정 수익을 챙긴 뒤, 남은 50%의 손절가를 진입가(본절가)로 자동 상향하여 **"원금 손실 없는 트레일링 스탑(Trailing Stop)"** 체제로 전환합니다.
+- **상황**: 특정 지지선을 기준으로 설정된 눌림목 진입 조건이 장 초반 시장 변동성으로 인해 순간적으로 하향 이탈했습니다.
+- **이슈**: 진입 즉시 손절 기준에 도달하여 정상적으로 손절매가 집행되었으나, 손절 후 짧은 시간 동안 재진입 쿨다운이 부재하여 매수와 손절이 짧은 간격으로 재발생하는 휩소(Whipsaw Churn) 패턴이 감지되었습니다.
+- **자가 진화 조치**:
+  - 시스템은 즉시 해당 종목의 상태를 격리하고, AI 반성 엔진을 가동하여 틱 데이터를 정밀 감사했습니다.
+  - 반성 엔진은 즉각 **"손절매 발생 종목에 대한 당일 재진입 금지 및 의무 쿨다운 규칙"**을 스스로 도출하여 시스템의 영구 룰북에 활성화(`ACTIVE`)하였습니다.
+  - 동시에 리스크 관리 계층에서 손절 가격 이하로 주가가 무너진 경우 신규 매수를 수학적으로 원천 거부하는 방어벽을 추가 구축했습니다.
 
----
-
-## 3. 첫날의 실전 경험과 첫 번째 자가 진화 (First Day & Immediate Evolution)
-
-오늘 모의투자 첫날(2026-11-09), 시스템은 뜻밖의 실전 엣지 케이스(Edge Case)를 마주했고, 그로부터 **스스로 학습하고 진화하는 프로세스를 성공적으로 입증**했습니다.
-
-### 발생했던 이슈: 알테오젠(196170) 휩소 체결 루프
-- **상황**: 알테오젠의 눌림목 매수 진입가는 `196,500원 이하`, 손절가는 `191,600원`으로 설정되었습니다.
-- **문제 발생**: 장 초반 매도세로 인해 주가가 190,700원으로 하락하자, `196,500원 이하` 조건이 충족되어 매수 체결이 일어났습니다. 그러나 매수가 자체가 이미 손절가(191,600원)보다 낮았기 때문에, 다음 틱에서 즉시 손절매가 실행되었습니다.
-- 손절 후 포지션이 비자마자 다음 틱에서 여전히 현재가가 `196,500원 이하`였으므로, **매수 ➔ 손절 ➔ 매수 ➔ 손절**이 2~3초 간격으로 연속 반복되며 불필요한 거래 수수료를 발생시키는 휩소 루프(Whipsaw Churn)가 관측되었습니다.
-
-### AI 검토 엔진(`ReflectionEngine`)의 즉각적 사후 복기
-문제를 감지하자마자 데몬을 격리하고, AI 검토 엔진에게 해당 체결 틱 데이터를 전달하여 감사(Audit)를 명령했습니다.
-
-> **AI 반성 엔진의 진단**:
-> *"손절매 발생 직후 진입 조건이 여전히 유효함에도 불구하고 재진입 억제 로직(Cooldown)이 부재하여 발생한 전형적인 실행 루프 오류입니다. 일시적 변동성 구간에서 반복 매매를 수행하여 수수료 낭비가 초래되었습니다."*
-
-### 도출된 자기학습 규칙과 시스템 영구 반영
-1. **신규 규칙 등록 (`RULE_021_POST_SL_COOLDOWN_MANDATE`)**:
-   - 손절매 발생 종목은 당일 재진입을 금지하거나 최소 30~60분의 쿨다운을 의무화하는 규칙을 생성하여 벡터 DB와 룰북에 `ACTIVE` 상태로 즉시 등록.
-2. **코드 레벨 4중 방어벽 구축**:
-   - `RiskManager`: 주문가가 손절가 이하일 경우(`price <= stop_price`) 매수 주문 자체를 수학적으로 원천 거부.
-   - `StrategyExecutor`: 당일 손절 또는 비상 청산된 종목은 그 즉시 상태를 `AVOID`로 변경하여 당일 재진입 영구 차단.
-   - `BUY_ON_DIP` 지지선 붕괴 판정: 주가가 손절가 아래로 떨어진 경우 눌림이 아닌 지지선 붕괴로 판단하여 신호 자동 소멸.
-
-이 과정을 통해 시스템은 사람이 지시하지 않아도 **실패 원인을 스스로 분석하고, 규칙을 만들고, 방어벽을 세워 더 단단해지는 자율 개선 메커니즘**을 완성했습니다.
+KAI는 사람이 개입하지 않아도 시스템 스스로 실전의 불완전성을 인정하고, 복기하여, 더 안전한 상태로 즉시 거듭나는 진정한 자율 퀀트의 가능성을 보여주었습니다.
 
 ---
 
-## 4. 앞으로의 계획과 여정
+## [English] System Architecture & Autonomous Evolution
 
-KAI 프로젝트는 완전한 투명성을 지향합니다.
+On November 9, 2026, **KAI**, a full-stack autonomous quantitative trading agent, officially commenced live paper trading in the Korean stock markets (KOSPI/KOSDAQ).
 
-1. **데일리 모닝 브리핑 & 매매 신호**: 매일 아침 08:30 시장 전망과 선별된 종목 및 진입 기준을 사전에 기록합니다.
-2. **장 마감 일지 & 복기**: 장 마감 후 실제 체결 결과와 손익, AI 반성 엔진의 사후 평가를 가감 없이 공유합니다.
-3. **아키텍처 고도화**: 멀티 에이전트 협업, 온디바이스 SLM(Small Language Model) 파인튜닝, 뉴스 센티먼트 분석 파이프라인의 발전 과정을 연재할 예정입니다.
+Going beyond conventional indicator-based heuristic bots, KAI is designed as an end-to-end autonomous agent that harmonizes **macro regime classification, hybrid AI hypothesis generation, mathematically unbypassable risk controls, low-latency tick monitoring, and self-improving post-trade reflection.**
 
-자율 퀀트 트레이딩 에이전트 KAI의 성장 과정을 지켜봐 주시기 바랍니다.
+### 1. High-Level Modular Architecture
+
+KAI operates through 5 decoupled, security-hardened architectural layers:
+
+1. **Layer 1: Perception & Market Feeds**  
+   Continuous streaming of real-time quotes, order book dynamics, exchange transaction feeds, and macroeconomic indicators.
+2. **Layer 2: AI Brain & Memory**  
+   Synthesizes market conditions, generates trading hypotheses with defined risk parameters, and injects historically learned rules through high-dimensional vector memory (RAG).
+3. **Layer 3: Unbypassable Risk Manager**  
+   An algorithmic barrier where AI models cannot dictate execution quantities. Enforces zero leverage (100% cash-only), single-position portfolio caps, volatility-adjusted position sizing, and mathematical order rejection at or below stop-loss boundaries.
+4. **Layer 4: Real-time Execution Engine**  
+   Daemon-driven state-machine actively monitoring intraday price action, orchestrating partial profit-taking (50% scale-out with trailing break-even stops), and enforcing mechanical loss cuts.
+5. **Layer 5: Continuous Reflection & Self-Learning**  
+   Post-market and incident audits that classify prediction errors, synthesize conditional IF-THEN correction rules, and dynamically register active constraints into the system rulebook.
+
+### 2. Core Operational Principles
+
+- **Capital Preservation First**: Zero margin, zero credit borrowing. A strict cash cushion is permanently reserved regardless of market sentiment.
+- **Strict Separation of Brain and Sizing**: Probabilistic language models formulate market thesis, but deterministic algorithms calculate mathematical capital exposure.
+- **Systematic Adaptation**: Unfavorable outcomes are not discarded; they serve as primary training data for the automated post-mortem engine to fortify future boundaries.
+
+### 3. First Day in the Field: Immediate Self-Evolution
+
+During today's inaugural session, KAI encountered an intraday edge-case driven by heightened morning volatility in a fast-moving biotech stock:
+
+- **Incident**: A sharp opening dip pushed the price below the designated entry trigger. While the initial position was mechanically cut via stop-loss within seconds, the absence of an immediate post-stop cooldown led to rapid re-entry whipsaws across successive ticks.
+- **Autonomous Remediation**:
+  - The live daemon instantly isolated the ticker, and the automated **Reflection Engine** was invoked to perform a rigorous post-mortem analysis on tick-level telemetry.
+  - The engine diagnosed the execution loop and synthesized a mandatory rule: **"Absolute Re-entry Prohibition & Mandatory Cooldown Following Stop-Loss Exits."**
+  - This rule was dynamically promoted to `ACTIVE` status in the system's rulebook, while the Risk Manager was fortified to reject any buy order below support floors mathematically.
+
+Through this incident, KAI successfully demonstrated its self-healing capability—transforming real-time execution friction into permanent, code-level risk defenses without human intervention.
 
 ---
-*Disclaimer: 본 블로그의 모든 글은 금융 투자 권유가 아니며, 자율 인공지능 트레이딩 시스템 연구 및 개발 과정을 기록한 기술 일지입니다.*
+*Disclaimer: All publications on this blog are technical research logs of an autonomous AI trading system and do not constitute financial advice.*
