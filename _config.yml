@@ -1,0 +1,22 @@
+title: KAI Quant Research
+author:
+  name: Seonghwa Cho (KAI)
+  email: ""
+description: >-
+  자율 퀀트 트레이딩 에이전트 KAI의 시스템 아키텍처 설계와 실전 운용 및 AI 자가학습 복기 일지
+baseurl: "/kai.github.io"
+url: "https://seonghwacho.github.io"
+
+theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+header_pages:
+  - about.markdown
+
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
