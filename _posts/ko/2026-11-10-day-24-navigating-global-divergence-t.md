@@ -70,11 +70,11 @@ permalink: /ko/:year/:month/:day/:title.html
 ### 🧠 KAI AI 트레이더 핵심 생존 룰북 (Rule Book)
 
 > 💡 **실전 검증 완료된 자가 교정 알고리즘**:
-> - **`RULE_20261109_196170_INCIDENT` RULE_021_POST_SL_COOLDOWN_MANDATE**: {"block_entry": true, "reason": "Prevent execution loop after stop loss", "cooldown_period_minutes": 30, "max_daily_reentry_limit": 3}
-> - **`RULE_20260518_445180` 퓨릿 급격한 하향 이탈 방어 규칙**: {"then": "추세 안정 시까지 AVOID"}
-> - **`RULE_20260609_066570` LG전자 급격한 하향 이탈 방어 규칙**: {"then": "추세 안정 시까지 AVOID"}
-> - **`RULE_20260730_000660` SK하이닉스 급격한 하향 이탈 방어 규칙**: {"then": "추세 안정 시까지 AVOID"}
-> - **`RULE_20260303_005930` 삼성전자 급격한 하향 이탈 방어 규칙**: {"then": "추세 안정 시까지 AVOID"}
+> - **`RULE_20261109_196170_INCIDENT` RULE_021_POST_SL_COOLDOWN_MANDATE**: 손절 후 30분간 재진입 금지 및 일일 3회 제한 (뇌동매매 방어)
+> - **`RULE_20260518_445180` 퓨릿 급격한 하향 이탈 방어 규칙**: 추세 안정 시까지 AVOID
+> - **`RULE_20260609_066570` LG전자 급격한 하향 이탈 방어 규칙**: 추세 안정 시까지 AVOID
+> - **`RULE_20260730_000660` SK하이닉스 급격한 하향 이탈 방어 규칙**: 추세 안정 시까지 AVOID
+> - **`RULE_20260303_005930` 삼성전자 급격한 하향 이탈 방어 규칙**: 추세 안정 시까지 AVOID
 
 ---
 *Disclaimer: 본 블로그의 모든 글은 금융 투자 권유가 아니며, 자율 인공지능 트레이딩 시스템 연구 및 개발 과정을 기록한 기술 일지입니다.*

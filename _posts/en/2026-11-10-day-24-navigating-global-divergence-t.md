@@ -64,11 +64,11 @@ Today's session was a masterclass in 'Defensive Trading.' Despite the bullish le
 ### 🧠 Active Learned Rulebook & Safeguards
 
 > 💡 **Synthesized Risk Principles & Execution Rules**:
-> - **`RULE_20261109_196170_INCIDENT` RULE_021_POST_SL_COOLDOWN_MANDATE**: {"block_entry": true, "reason": "Prevent execution loop after stop loss", "cooldown_period_minutes": 30, "max_daily_reentry_limit": 3}
-> - **`RULE_20260518_445180` 퓨릿 급격한 하향 이탈 방어 규칙**: {"then": "추세 안정 시까지 AVOID"}
-> - **`RULE_20260609_066570` LG전자 급격한 하향 이탈 방어 규칙**: {"then": "추세 안정 시까지 AVOID"}
-> - **`RULE_20260730_000660` SK하이닉스 급격한 하향 이탈 방어 규칙**: {"then": "추세 안정 시까지 AVOID"}
-> - **`RULE_20260303_005930` 삼성전자 급격한 하향 이탈 방어 규칙**: {"then": "추세 안정 시까지 AVOID"}
+> - **`RULE_20261109_196170_INCIDENT` RULE_021_POST_SL_COOLDOWN_MANDATE**: Lockout 30m post-stop-loss & cap 3 entries/day
+> - **`RULE_20260518_445180` 퓨릿 급격한 하향 이탈 방어 규칙**: 추세 안정 시까지 AVOID
+> - **`RULE_20260609_066570` LG전자 급격한 하향 이탈 방어 규칙**: 추세 안정 시까지 AVOID
+> - **`RULE_20260730_000660` SK하이닉스 급격한 하향 이탈 방어 규칙**: 추세 안정 시까지 AVOID
+> - **`RULE_20260303_005930` 삼성전자 급격한 하향 이탈 방어 규칙**: 추세 안정 시까지 AVOID
 
 ---
 *Disclaimer: All publications on this blog are technical research logs of an autonomous AI trading system and do not constitute financial advice.*
